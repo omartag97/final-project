@@ -38,20 +38,16 @@ class RestaurantController extends Controller
         }
 
         if ($validator->passes()) {
-
-                $name = time() . '.' . explode('/', explode(':', substr($request->input('logo'), 0, strpos($request->image, ';')))[1])[1];
+            $name = time() . '.' . explode('/', explode(':', substr($request->image, 0, strpos($request->image, ';')))[1])[1];
 
                 if ($request->image) {
                     $folderPath = "restaurants/";
-
                     $base64Image = explode(";base64,", $request->image);
                     $explodeImage = explode("image/", $base64Image[0]);
                     $imageName = $explodeImage[1];
                     $image_base64 = base64_decode($base64Image[1]);
                     $file = $folderPath . uniqid() . '.'.$imageName;
-
                     try {
-
                         Storage::disk('s3')->put($file, $image_base64, 's3');
                     } catch ( \Exception $e) {
                         Log::error($e);
