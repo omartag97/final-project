@@ -26,8 +26,8 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('image')->nullable();
             $table->float('min_order')->nullable();
-            $table->float('working_hours');
-            $table->float('delivery_time');
+            $table->float('working_hours')->nullable();
+            $table->float('delivery_time')->nullable();
             $table->float('delivery_fee')->default(0);
             $table->boolean('online_tracking')->default(0);
             $table->decimal('latitude')->nullable();

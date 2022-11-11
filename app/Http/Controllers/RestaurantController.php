@@ -65,9 +65,7 @@ class RestaurantController extends Controller
                 'password' => $request->input('password'),
                 'region' => $request->input('address'),
                 'description' => $request->input('description'),
-                'working_hours' => $request->input('working_hours'),
-                'delivery_time' => $request->input('delivery_time'),
-                'min_order' => $request->input('min_order'),
+
                 'image' =>  'https://talabat-iti.s3.amazonaws.com/' . $file ,
                 'latitude' => $request->input('latitude'),
                 'longitude' => $request->input('longitude'),
