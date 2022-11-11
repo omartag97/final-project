@@ -54,6 +54,7 @@ class RestaurantController extends Controller
                     }
                 }
 
+                $password = Hash::make($request->input('password'));
             // saving data into users table
             $restaurant = Restaurant::create([
                 'store_name' => $request->input('store_name'),
@@ -62,7 +63,7 @@ class RestaurantController extends Controller
                 'last_name' => $request->input('last_name'),
                 'mobile' => $request->input('phone'),
                 'email' => $request->input('email'),
-                'password' => $request->input('password'),
+                'password' => $password,
                 'region' => $request->input('address'),
                 'description' => $request->input('description'),
                 'image' =>  'https://talabat-iti.s3.amazonaws.com/' . $file ,
