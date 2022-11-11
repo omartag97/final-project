@@ -23,7 +23,7 @@ class Restaurant extends Authenticatable
         'email',
         'password',
         'region',
-        'descreption',
+        'description',
         'image',
         'working_hours',
         'delivery_time',

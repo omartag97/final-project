@@ -38,7 +38,7 @@ class ProductController extends Controller
                 'restaurant_id' => $restaurantId,
                 'name' => $request->name,
                 'price' => $request->price,
-                // 'descreption' => $request->descreption,
+                // 'description' => $request->description,
                 'image' => 'https://talabat-iti.s3.amazonaws.com/' . $file,
                 'created_at' => now()->format('Y-m-d H:i:s'),
             ]);
@@ -46,7 +46,7 @@ class ProductController extends Controller
             return response()->json([
                 'name' => $product->name,
                 'price' => $product->adress,
-                'descreption' => $product->descreption,
+                'description' => $product->description,
                 'image' => $request->image,
             ]);
     }

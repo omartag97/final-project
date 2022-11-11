@@ -64,7 +64,7 @@ class RestaurantController extends Controller
                 'email' => $request->input('email'),
                 'password' => $request->input('password'),
                 'region' => $request->input('address'),
-                'descreption' => $request->input('descreption'),
+                'description' => $request->input('description'),
                 'working_hours' => $request->input('working_hours'),
                 'delivery_time' => $request->input('delivery_time'),
                 'min_order' => $request->input('min_order'),
