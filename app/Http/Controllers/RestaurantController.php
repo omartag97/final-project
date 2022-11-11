@@ -151,7 +151,7 @@ class RestaurantController extends Controller
 
     public function restInfo($id)
     {
-        $restaurants = Restaurant::where('id',$id)->first(['id', 'store_name', 'type', 'image', 'region', 'min_order', 'working_hours', 'delivery_time', 'delivery_fee', 'type', 'online_tracking']);
+        $restaurants = Restaurant::where('id',$id)->first(['id', 'store_name', 'type', 'image', 'region', 'delivery_fee', 'type', 'online_tracking']);
         return response()->json([
             'data' => [
                 'id' => $restaurants->id,
@@ -159,9 +159,6 @@ class RestaurantController extends Controller
                 'type' => $restaurants->type,
                 'image' => $restaurants->image,
                 'region' => $restaurants->region,
-                'minOrder' => $restaurants->min_order,
-                'workingHours' => $restaurants->working_hours,
-                'deliveryTime' => $restaurants->delivery_fime,
                 'deliveryFee' => $restaurants->delivery_fee,
                 'description' => $restaurants->type,
                 'onlineTracking' => $restaurants->online_tracking,
