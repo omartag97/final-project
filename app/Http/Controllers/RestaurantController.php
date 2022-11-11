@@ -65,7 +65,6 @@ class RestaurantController extends Controller
                 'password' => $request->input('password'),
                 'region' => $request->input('address'),
                 'description' => $request->input('description'),
-
                 'image' =>  'https://talabat-iti.s3.amazonaws.com/' . $file ,
                 'latitude' => $request->input('latitude'),
                 'longitude' => $request->input('longitude'),
@@ -100,13 +99,13 @@ class RestaurantController extends Controller
                 ], 401);
             }
 
-            $restaurants = Restaurant::where('email',$request->email)->first();
-            if (!$restaurants || ! Hash::check($request->password , $restaurants->password)) {
+            $restaurants = Restaurant::where('email',$request->input('email'))->first();
+            if (!$restaurants || ! Hash::check($request->input('password') , $restaurants->password)) {
                 return response()->json([
                     'message' => 'Email & Password does not match with our record.',
                 ], 401);
             } else {
-                $restaurant = Restaurant::where('email', $request->email)->first();
+                $restaurant = Restaurant::where('email', $request->input('email'))->first();
                 $token = $restaurant->createToken(time())->plainTextToken;
                 return response()->json([
                     'id' => $restaurant->id,

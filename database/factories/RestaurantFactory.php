@@ -32,7 +32,6 @@ class RestaurantFactory extends Factory
             'region' => ucwords($this->faker->words(4, true)),
             'description' => ucwords($this->faker->words(4, true)),
             'image' => 'https://talabat-iti.s3.amazonaws.com/users/635eb4dac5781.jpeg',
-
             'delivery_fee' => 10,
             'online_tracking' => 0,
             'created_at' => now(),
