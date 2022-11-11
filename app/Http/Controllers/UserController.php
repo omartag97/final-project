@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
-use Intervention\Image\Facades\Image;
+
 use App\Http\Requests\RegisterationRequest;
 use Illuminate\Support\Facades\DB;
 use Laravel\Passport\Token;
@@ -39,7 +39,6 @@ class UserController extends Controller
 
         if ($validator->passes()) {
             $name = time() . '.' . explode('/', explode(':', substr($request->image, 0, strpos($request->image, ';')))[1])[1];
-                Image::make($request->image)->save(public_path('images/' . $name));
 
             if ($request->image) {
                 $folderPath = "users/";

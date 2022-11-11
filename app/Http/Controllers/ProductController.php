@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -19,7 +18,7 @@ class ProductController extends Controller
             $restaurantId = $restaurant->id;
             // convert base64 image to string
             $name = time() . '.' . explode('/', explode(':', substr($request->image, 0, strpos($request->image, ';')))[1])[1];
-            Image::make($request->image)->save(public_path('images/' . $name));
+
 
             if ($request->image) {
                 $folderPath = "products/";

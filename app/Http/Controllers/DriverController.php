@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Drivers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\RegisterationRequest;
@@ -36,49 +35,43 @@ class DriverController extends Controller
         }
 
         if ($validator->passes()) {
-            // convert base64 image to string
             $name = time() . '.' . explode('/', explode(':', substr($request->image, 0, strpos($request->image, ';')))[1])[1];
-            Image::make($request->image)->save(public_path('images/' . $name));
 
-            if ($validator->passes()) {
-                $name = time() . '.' . explode('/', explode(':', substr($request->image, 0, strpos($request->image, ';')))[1])[1];
-                Image::make($request->image)->save(public_path('images/' . $name));
 
-                if ($request->image) {
-                    $folderPath = "users/";
+            if ($request->image) {
+                $folderPath = "users/";
 
-                    $base64Image = explode(";base64,", $request->image);
-                    $explodeImage = explode("image/", $base64Image[0]);
-                    $imageName = $explodeImage[1];
-                    $image_base64 = base64_decode($base64Image[1]);
-                    $file = $folderPath . uniqid() . '.' . $imageName;
+                $base64Image = explode(";base64,", $request->image);
+                $explodeImage = explode("image/", $base64Image[0]);
+                $imageName = $explodeImage[1];
+                $image_base64 = base64_decode($base64Image[1]);
+                $file = $folderPath . uniqid() . '.' . $imageName;
 
-                    try {
-                        Storage::disk('s3')->put($file, $image_base64, 's3');
-                    } catch (\Exception $e) {
-                        Log::error($e);
-                    }
+                try {
+                    Storage::disk('s3')->put($file, $image_base64, 's3');
+                } catch (\Exception $e) {
+                    Log::error($e);
                 }
-
-                // saving data into users table
-                $drivers = Drivers::create([
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'password' => Hash::make($request->password),
-                    'mobile' => $request->mobile,
-                    'image' =>  'https://talabat-iti.s3.amazonaws.com/' . $file,
-                ]);
-
-                $token = $drivers->createToken(time())->plainTextToken;
-
-                // return JSON API (driver$drivers access token)
-                return response()->json([
-                    'name' => $drivers->name,
-                    'email' => $drivers->email,
-                    'image' => $drivers->image,
-                    'token' => $token,
-                ]);
             }
+
+            // saving data into users table
+            $drivers = Drivers::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'mobile' => $request->mobile,
+                'image' =>  'https://talabat-iti.s3.amazonaws.com/' . $file,
+            ]);
+
+            $token = $drivers->createToken(time())->plainTextToken;
+
+            // return JSON API (driver$drivers access token)
+            return response()->json([
+                'name' => $drivers->name,
+                'email' => $drivers->email,
+                'image' => $drivers->image,
+                'token' => $token,
+            ]);
         }
     }
 
@@ -129,6 +122,5 @@ class DriverController extends Controller
         return response()->json([
             'Available drivers' => $drivers,
         ]);
-
     }
 }

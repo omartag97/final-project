@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\RegisterationRequest;
@@ -40,9 +39,7 @@ class RestaurantController extends Controller
 
         if ($validator->passes()) {
 
-            // convert base64 image to string
                 $name = time() . '.' . explode('/', explode(':', substr($request->input('logo'), 0, strpos($request->image, ';')))[1])[1];
-                Image::make($request->image)->save(public_path('images/' . $name));
 
                 if ($request->image) {
                     $folderPath = "restaurants/";
