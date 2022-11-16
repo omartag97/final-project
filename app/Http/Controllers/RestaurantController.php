@@ -110,7 +110,7 @@ class RestaurantController extends Controller
                 $token = $restaurant->createToken(time())->plainTextToken;
                 return response()->json([
                     'id' => $restaurant->id,
-                    'name' => $restaurant->name,
+                    'name' => $restaurant->store_name,
                     'email' => $restaurant->email,
                     'token' => $token
                 ]);

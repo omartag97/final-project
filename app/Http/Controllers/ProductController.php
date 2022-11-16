@@ -16,7 +16,6 @@ class ProductController extends Controller
     {
             $restaurant = auth('sanctum')->user();
             $restaurantId = $restaurant->id;
-            // convert base64 image to string
             $name = time() . '.' . explode('/', explode(':', substr($request->image, 0, strpos($request->image, ';')))[1])[1];
 
 
@@ -38,7 +37,6 @@ class ProductController extends Controller
                 'restaurant_id' => $restaurantId,
                 'name' => $request->name,
                 'price' => $request->price,
-                // 'description' => $request->description,
                 'image' => 'https://talabat-iti.s3.amazonaws.com/' . $file,
                 'created_at' => now()->format('Y-m-d H:i:s'),
             ]);
